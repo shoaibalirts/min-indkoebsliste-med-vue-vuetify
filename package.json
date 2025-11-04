@@ -13,7 +13,6 @@
     "lint": "eslint . --fix --cache"
   },
   "dependencies": {
-    "@mdi/font": "^7.4.47",
     "firebase": "^12.5.0",
     "vue": "^3.5.22",
     "vue-router": "^4.6.3",
@@ -21,6 +20,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.37.0",
+    "@mdi/font": "^7.4.47",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vitejs/plugin-vue-jsx": "^5.1.1",
     "eslint": "^9.37.0",

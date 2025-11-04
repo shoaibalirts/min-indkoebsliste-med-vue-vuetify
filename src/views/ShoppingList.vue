@@ -1,12 +1,15 @@
 <template>
-  <h1>Din Indkøbslister</h1>
   <p v-if="loading">Henter data...</p>
 
-  <ul v-else>
-    <li v-for="list in shoppingList" :key="list.CategoryName">
-      {{ list.CategoryName }}
-    </li>
-  </ul>
+  <v-card class="mx-auto" max-width="425">
+    <v-list lines="">
+      <v-list-item v-for="list in shoppingList" :key="list.id">
+        <template v-slot:subtitle>
+          {{ list.CategoryName }}
+        </template>
+      </v-list-item>
+    </v-list>
+  </v-card>
 </template>
 
 <script>
@@ -18,12 +21,13 @@ export default {
     return {
       shoppingList: [],
       loading: true,
+      myname: "Shoaib",
     };
   },
   async mounted() {
     try {
       this.shoppingList = await productService.getShoppingList();
-      console.log("Fetched data:", this.shoppingList);
+      console.log("Received data from firebase:", this.shoppingList);
     } catch (err) {
       console.error("Error fetching shopping list:", err);
     } finally {
