@@ -14,11 +14,15 @@
       <!--  -->
     </v-main>
   </v-app>
+  <shoppinglist />
 </template>
 <script>
 // const drawer = null;
+import shoppinglist from "./views/shoppinglist.vue";
 export default {
-  components: {},
+  components: {
+    shoppinglist,
+  },
   data() {
     return {
       drawer: null,
