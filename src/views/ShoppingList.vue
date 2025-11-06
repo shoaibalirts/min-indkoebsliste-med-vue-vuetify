@@ -1,5 +1,7 @@
 <template>
-  <p v-if="loading">Henter data...</p>
+  <p v-if="loading">
+    <the-loader />
+  </p>
 
   <v-card class="mx-auto" max-width="425">
     <v-list v-for="(list, index) in shoppingList" :key="index" lines="two">
@@ -16,8 +18,11 @@
 <script>
 import productService from "@/services/productService";
 import { formatDateDMY } from "@/utility/dateFormatter";
+import TheLoader from "@/components/TheLoader.vue";
 export default {
-  components: {},
+  components: {
+    TheLoader,
+  },
   data() {
     return {
       shoppingList: [],
