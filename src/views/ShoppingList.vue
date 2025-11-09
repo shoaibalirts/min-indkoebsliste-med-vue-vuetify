@@ -9,12 +9,15 @@
         <!-- <template v-slot:subtitle> -->
         <p>{{ list.listName }}</p>
         <p>{{ list.listCreatedDate }}</p>
+        <p>{{ list.prodName }}</p>
+        <p>{{ list.co2_per_kg }}</p>
         <!-- <total-carbon productsWithThisId="list.Products" /> -->
 
-        <p>
+        <!-- <p>
           CO2 (Kg):
-          {{ list.Products ? list.Products[0].co2_per_kg : "Not available" }}
-        </p>
+          {{ list.listProducts ? list.listProducts[0].co2_per_kg : "Products array not available" }}
+        </p> -->
+        <p>{{ totalCO2 }}</p>
         <!-- </template> -->
       </v-list-item>
     </v-list>
@@ -41,11 +44,19 @@ export default {
   async mounted() {
     try {
       const receivedShoppingListFromDatabase = await productService.getShoppingList();
+      const productDetails = await productService.getProductDetailAgainstProductDocumentReference(
+        "IDA1sJ3jn8QjnhjjLnGd"
+      );
+      console.log("Product details: ", productDetails);
+      // const allProducts = await productService.getAllProductsFromProductsTable();  // Marta requested
+      // console.log("All Products:", allProducts); // Marta requested
       this.shoppingList = receivedShoppingListFromDatabase.map((list) => {
         return {
-          ...list,
           listName: list.CategoryName,
           listCreatedDate: list.CreatedDate ? formatDateDMY(list.CreatedDate) : "No date available",
+          prodName: productDetails.prodName,
+          co2_per_kg: productDetails.co2_per_kg,
+          // totalListProductsCO2: list.Products.map((prod) => this.sum = this.sum + prod.co2_per_kg),
         };
       });
       console.log("Received data from Firebase Database:", this.shoppingList);
