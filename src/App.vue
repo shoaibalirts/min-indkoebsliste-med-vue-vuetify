@@ -6,6 +6,7 @@
     <PlusButton />
   </section>
   <the-footer></the-footer>
+  <router-view></router-view>
 </template>
 
 <script>
