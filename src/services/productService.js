@@ -1,5 +1,4 @@
 import { db } from "@/utility/firebaseConfig";
-// import { collection, addDoc, getDoc, getDocs, updateDoc, deleteDoc } from "firebase/firestore";
 import { collection, getDocs } from "firebase/firestore";
 
 const shoppingListCollection = collection(db, "indkoebsliste");
