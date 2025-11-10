@@ -57,6 +57,18 @@ export default {
       }
     },
   },
+  computed: {
+    // recentShoppingList30Days() {
+    //   const days = 30;
+    //   const cutoffDate = new Date();
+    //   cutoffDate.setDate(cutoffDate.getDate() - days);
+    //   const recentItems = this.shoppingList.filter((item) => {
+    //     const itemDate = new Date(item.listCreatedDate);
+    //     return itemDate > cutoffDate;
+    //   });
+    //   console.log("Recent Items: ", recentItems);
+    // },
+  },
   async mounted() {
     try {
       const receivedShoppingListFromDatabase = await productService.getShoppingList();
