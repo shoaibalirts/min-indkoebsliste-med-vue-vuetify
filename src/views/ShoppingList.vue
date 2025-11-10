@@ -6,23 +6,24 @@
   <v-card class="mx-auto" max-width="425">
     <v-list v-for="(list, index) in shoppingList" :key="index" lines="two">
       <v-list-item>
-        <!-- <template v-slot:subtitle> -->
         <p>{{ list.listName }}</p>
         <p>{{ list.listCreatedDate }}</p>
-        <div v-if="list.totalCO2 * 4 < 60">
-          <p>Lav</p>
-          <p>CO₂: {{ list.totalCO2 }} kg</p>
+
+        <!-- <template v-slot:append> -->
+        <div class="d-flex align-center">
+          <v-icon
+            :color="getCo2LevelColor(list.totalCO2)"
+            icon="mdi-circle-medium"
+            size="24"
+            class="mr-2"
+          ></v-icon>
+
+          <span class="text-subtitle-1 font-weight-bold">
+            {{ list.totalCO2.toFixed(2) }} kg CO2
+          </span>
         </div>
-        <div v-else-if="list.totalCO2 * 4 > 60 && list.totalCO2 * 4 < 160">
-          <p>Medium</p>
-          <p>CO₂: {{ list.totalCO2 }} kg</p>
-        </div>
-        <div v-else>
-          <p>Høj</p>
-          <p>CO₂: {{ list.totalCO2 }} kg</p>
-        </div>
-        <!-- </template> -->
       </v-list-item>
+      <v-divider></v-divider>
     </v-list>
   </v-card>
 </template>
@@ -31,7 +32,6 @@
 import productService from "@/services/productService";
 import { formatDateDMY } from "@/utility/dateFormatter";
 import TheLoader from "@/components/TheLoader.vue";
-import TotalCarbon from "@/components/TotalCarbon.vue";
 import { db } from "@/utility/firebaseConfig";
 import { collection, getDocs, where, query, documentId } from "firebase/firestore";
 const productsCollection = collection(db, "Products");
@@ -39,13 +39,23 @@ const productsCollection = collection(db, "Products");
 export default {
   components: {
     TheLoader,
-    TotalCarbon,
   },
   data() {
     return {
       shoppingList: [],
       loading: true,
     };
+  },
+  methods: {
+    getCo2LevelColor(co2Value) {
+      if (co2Value < 60) {
+        return "green";
+      } else if (co2Value > 60 && co2Value < 160) {
+        return "yellow-darken-3";
+      } else {
+        return "red";
+      }
+    },
   },
   async mounted() {
     try {

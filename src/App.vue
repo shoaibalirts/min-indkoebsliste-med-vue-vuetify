@@ -1,11 +1,16 @@
 <template>
-  <the-header></the-header>
-  <section>
-    <h4>Seneste 30 dage</h4>
-    <ShoppingList />
-    <PlusButton />
-  </section>
-  <the-footer></the-footer>
+  <v-app>
+    <the-header></the-header>
+    <!-- <v-main>
+      <router-view />
+    </v-main> -->
+    <section>
+      <h4>Seneste 30 dage</h4>
+      <ShoppingList />
+      <PlusButton />
+    </section>
+    <the-footer></the-footer>
+  </v-app>
 </template>
 
 <script>
