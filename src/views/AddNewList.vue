@@ -1,21 +1,21 @@
 <template>
-  <v-form id="list-form">
+  <v-form id="list-form" @submit.prevent="handleSaveList">
     <v-row align="center">
       <v-btn icon="mdi-chevron-left" variant="plain" size="large" @click="handleClickBackBtn" />
-      <v-text-field placeholder="Skriv navn" v-model="listName" @blur="handleSaveList" />
+      <v-text-field placeholder="Skriv navn" v-model="listName" />
     </v-row>
 
-    <v-row v-for="product in shoppingList.Products" v-bind:key="product.id">
+    <!-- <v-row v-for="product in shoppingList.Products" v-bind:key="product.id">
       <v-checkbox :label="product.title"></v-checkbox>
       <p>{{ product.co2_per_kg }} kg CO₂</p>
-    </v-row>
+    </v-row> -->
 
     <v-combobox
       :items="productsList"
       item-value="value"
       label="Vælg produkt"
       v-model="selectedItem"
-      @update:model-value="handleUpdateList"
+      @update:model-value="setShoppingListData"
     >
       <!-- Custom slot for how each item appears in the dropdown -->
       <template v-slot:item="{ props, item }">
@@ -25,6 +25,8 @@
         </v-list-item>
       </template>
     </v-combobox>
+
+    <v-btn type="submit">Gem</v-btn>
   </v-form>
 </template>
 
@@ -35,14 +37,9 @@ export default {
   data() {
     return {
       productsList: [],
-      shoppingList: {
-        CategoryName: "",
-        CreatedDate: null,
-        Products: [],
-      },
+      shoppingListProducts: [],
       selectedItem: null,
       unsubscribe: null,
-      listId: null,
       listName: "",
     };
   },
@@ -51,24 +48,19 @@ export default {
       this.$emit("toggle-open");
     },
     setShoppingListData(data) {
-      this.shoppingList = data;
-    },
-    async listenToList(id) {
-      if (this.unsubscribe) this.unsubscribe(); // clear previous listener if any
-
-      this.unsubscribe = await productService.listenToShoppingList(id, this.setShoppingListData);
+      this.shoppingListProducts.push(data.value);
+      console.log("this.shoppingListProducts", this.shoppingListProducts);
     },
     async handleSaveList() {
-      const snapshotId = await productService.createShoppingList(this.listName);
+      if (!this.listName || this.shoppingListProducts.length === 0) return;
 
-      this.listId = snapshotId;
+      const list = {
+        CategoryName: this.listName,
+        CreatedDate: new Date(),
+        Products: this.shoppingListProducts,
+      };
 
-      this.listenToList(snapshotId);
-    },
-    handleUpdateList(product) {
-      if (!this.listId || !product) return;
-      console.log("product", product);
-      // productService.addProductToList(this.listId, product);
+      productService.saveListData(list);
     },
   },
   async mounted() {
@@ -76,7 +68,7 @@ export default {
       const receivedProductsListFromDatabase = await productService.getProductsList();
       this.productsList = receivedProductsListFromDatabase.map((list) => {
         return {
-          value: list.prodId,
+          value: list.id,
           title: list.prodName,
           co2_per_kg: list.co2_per_kg,
           prodAlternatives: list.prodAlternatives || [],
