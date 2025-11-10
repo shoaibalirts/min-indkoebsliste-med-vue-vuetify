@@ -48,9 +48,9 @@ export default {
   },
   methods: {
     getCo2LevelColor(co2Value) {
-      if (co2Value < 60) {
+      if (co2Value < 15) {
         return "green";
-      } else if (co2Value > 60 && co2Value < 160) {
+      } else if (co2Value > 15 && co2Value < 40) {
         return "yellow-darken-3";
       } else {
         return "red";
