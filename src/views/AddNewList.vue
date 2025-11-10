@@ -1,10 +1,15 @@
 <template>
-  <v-form class="position-absolute w-100 h-100">
-    <v-text-field placeholder="Skriv navn" v-model="listName" @blur="handleSaveList" />
+  <v-form id="list-form">
+    <v-row align="center">
+      <v-btn icon="mdi-chevron-left" variant="plain" size="large" @click="handleClickBackBtn" />
+      <v-text-field placeholder="Skriv navn" v-model="listName" @blur="handleSaveList" />
+    </v-row>
+
     <v-row v-for="product in shoppingList.Products" v-bind:key="product.id">
       <v-checkbox :label="product.title"></v-checkbox>
       <p>{{ product.co2_per_kg }} kg CO₂</p>
     </v-row>
+
     <v-combobox
       :items="productsList"
       item-value="value"
@@ -24,7 +29,7 @@
 </template>
 
 <script>
-import productService from "./services/productService";
+import productService from "../services/productService";
 
 export default {
   data() {
@@ -42,6 +47,9 @@ export default {
     };
   },
   methods: {
+    handleClickBackBtn() {
+      this.$emit("toggle-open");
+    },
     setShoppingListData(data) {
       this.shoppingList = data;
     },
@@ -59,7 +67,8 @@ export default {
     },
     handleUpdateList(product) {
       if (!this.listId || !product) return;
-      productService.addProductToList(this.listId, product);
+      console.log("product", product);
+      // productService.addProductToList(this.listId, product);
     },
   },
   async mounted() {
@@ -79,3 +88,14 @@ export default {
   },
 };
 </script>
+
+<style>
+#list-form {
+  background-color: white;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+</style>
