@@ -27,7 +27,7 @@
               </span>
             </div>
 
-            <span class="text-subtitle-1 font-weight-bold mt-1">
+            <span class="text-subtitle-1 text-caption">
               {{ list.totalCO2.toFixed(2) }} kg CO2
             </span>
           </div>
