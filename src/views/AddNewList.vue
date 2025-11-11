@@ -1,11 +1,17 @@
 <template>
   <v-form id="list-form" @submit.prevent="handleSaveList">
-    <v-row align="center">
-      <v-btn icon="mdi-chevron-left" variant="plain" size="large" @click="handleClickBackBtn" />
-      <v-text-field placeholder="Skriv navn" v-model="listName" />
-    </v-row>
+    <v-btn prepend-icon="mdi-chevron-left" variant="plain" size="large" @click="handleClickBackBtn"
+      >Tilbage</v-btn
+    >
 
-    <v-list>
+    <v-text-field
+      id="name-input"
+      placeholder="Skriv navn"
+      v-model="listName"
+      :rules="validationRules"
+    />
+
+    <v-list id="selected-products-list">
       <v-list-item v-for="product in shoppingListProducts" v-bind:key="product">
         <v-list-item-title>{{
           productsList.find((prod) => prod.value === product).title
@@ -46,6 +52,7 @@ export default {
       shoppingListProducts: [],
       selectedItem: null,
       listName: "",
+      validationRules: [(value) => value || "Liste navn er pakrævet."],
     };
   },
   methods: {
@@ -89,10 +96,21 @@ export default {
 <style>
 #list-form {
   background-color: white;
-  position: absolute;
+  position: fixed;
   width: 100vw;
   height: 100vh;
   top: 0;
   left: 0;
+  padding: 3vh 5vw;
+}
+
+#name-input {
+  margin-bottom: 1vh;
+}
+
+#selected-products-list {
+  max-height: 50vh;
+  overflow: auto;
+  margin-bottom: 3vh;
 }
 </style>
