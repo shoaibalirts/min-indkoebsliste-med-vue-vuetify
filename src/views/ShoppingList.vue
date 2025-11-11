@@ -5,23 +5,33 @@
 
   <v-card class="mx-auto" max-width="425">
     <v-list v-for="(list, index) in shoppingList" :key="index" lines="two">
-      <v-list-item>
-        <p>{{ list.listName }}</p>
-        <p>{{ list.listCreatedDate }}</p>
+      <v-list-item @click="handleClick">
+        <v-list-item-title class="font-weight-bold">{{ list.listName }}</v-list-item-title>
+        <v-list-item-subtitle>{{ list.listCreatedDate }}</v-list-item-subtitle>
 
-        <!-- <template v-slot:append> -->
-        <div class="d-flex align-center">
-          <v-icon
-            :color="getCo2LevelColor(list.totalCO2)"
-            icon="mdi-circle-medium"
-            size="24"
-            class="mr-2"
-          ></v-icon>
+        <template v-slot:append>
+          <div class="d-flex flex-column align-start">
+            <div class="d-flex align-center">
+              <v-icon
+                :color="getCo2LevelColor(list.totalCO2)"
+                icon="mdi-circle-medium"
+                size="16"
+                class="mr-1"
+              ></v-icon>
 
-          <span class="text-subtitle-1 font-weight-bold">
-            {{ list.totalCO2.toFixed(2) }} kg CO2
-          </span>
-        </div>
+              <span
+                class="text-body-2 font-weight-medium"
+                :class="`text-${getCo2LevelColor(list.totalCO2)}`"
+              >
+                {{ getCo2LevelText(list.totalCO2) }}
+              </span>
+            </div>
+
+            <span class="text-subtitle-1 font-weight-bold mt-1">
+              {{ list.totalCO2.toFixed(2) }} kg CO2
+            </span>
+          </div>
+        </template>
       </v-list-item>
       <v-divider></v-divider>
     </v-list>
@@ -48,13 +58,31 @@ export default {
   },
   methods: {
     getCo2LevelColor(co2Value) {
-      if (co2Value < 15) {
+      if (co2Value < 4.5) {
+        // < 15
         return "green";
-      } else if (co2Value > 15 && co2Value < 40) {
+      } else if (co2Value > 4.4 && co2Value < 8) {
+        //15-40
         return "yellow-darken-3";
       } else {
+        // >40
         return "red";
       }
+    },
+    getCo2LevelText(co2Value) {
+      if (co2Value < 4.5) {
+        // <15
+        return "Lav";
+      } else if (co2Value > 4.4 && co2Value < 8) {
+        // 15-40
+        return "Medium";
+      } else {
+        // >40
+        return "Høj";
+      }
+    },
+    handleClick() {
+      console.log("clicked on each list");
     },
   },
   computed: {
