@@ -1,6 +1,6 @@
 <template>
-  <v-card height="100">
-    <v-toolbar extended>
+  <v-card height="auto">
+    <v-toolbar>
       <v-toolbar-title text="Dine Indkøbslister"></v-toolbar-title>
 
       <template v-slot:append>
