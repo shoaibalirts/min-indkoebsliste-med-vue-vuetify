@@ -3,13 +3,12 @@
     <the-loader />
   </p>
 
-  <v-card class="mx-auto" max-width="425">
-    <v-card-title class="pt-4 pb-2">Seneste 30 dage</v-card-title>
-    <v-divider></v-divider>
+  <v-card class="mx-auto">
+    <v-card-title class="text-center bg-primary rounded-b-circle">Seneste 30 dage</v-card-title>
 
     <v-list v-if="recent30DaysList.length > 0">
       <div v-for="(list, index) in recent30DaysList" :key="`recent-${index}`">
-        <v-list-item @click="handleClick">
+        <v-list-item class="rounded elevation-1" @click="handleClick">
           <v-list-item-title class="font-weight-bold">{{ list.listName }}</v-list-item-title>
           <v-list-item-subtitle>{{ list.listCreatedDate }}</v-list-item-subtitle>
 
@@ -39,12 +38,11 @@
       >Ingen lister i de sidste 30 dage.</v-card-text
     >
 
-    <v-card-title class="pt-4 pb-2">Sidste måned</v-card-title>
-    <v-divider></v-divider>
+    <v-card-title class="text-center bg-primary rounded-b-circle">Sidste måned</v-card-title>
 
     <v-list v-if="previousMonthList.length > 0">
       <div v-for="(list, index) in previousMonthList" :key="`prev-month-${index}`">
-        <v-list-item @click="handleClick">
+        <v-list-item class="rounded elevation-1" @click="handleClick">
           <v-list-item-title class="font-weight-bold">{{ list.listName }}</v-list-item-title>
           <v-list-item-subtitle>{{ list.listCreatedDate }}</v-list-item-subtitle>
 
