@@ -1,12 +1,11 @@
 <template>
   <v-app>
-    <the-header></the-header>
+    <the-header v-if="!isAddNewListOpened"></the-header>
     <v-main class="mt-0">
       <ShoppingList />
       <PlusButton @toggle-open="toggleIsAddNewListOpened" />
+      <add-new-list v-if="isAddNewListOpened" @toggle-open="toggleIsAddNewListOpened" />
     </v-main>
-    <add-new-list v-if="isAddNewListOpened" @toggle-open="toggleIsAddNewListOpened" />
-
     <the-footer></the-footer>
   </v-app>
 </template>
