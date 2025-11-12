@@ -194,12 +194,12 @@ export default {
   async mounted() {
     try {
       const receivedShoppingListFromDatabase = await productService.getShoppingList();
-      console.log("Received Indkoebsliste Data: ", receivedShoppingListFromDatabase);
+      // console.log("Received Indkoebsliste Data: ", receivedShoppingListFromDatabase);
       const allProductsReferenceIdsArray = receivedShoppingListFromDatabase.map((item) => {
         return item.Products;
       });
       const productsRefs = allProductsReferenceIdsArray.flat();
-      console.log("productsRefs: ", productsRefs); //array of product table document reference id's
+      // console.log("productsRefs: ", productsRefs); //array of product table document reference id's
 
       if (productsRefs.length === 0) {
         this.shoppingList = receivedShoppingListFromDatabase.map((list) => {
@@ -236,7 +236,7 @@ export default {
         };
       });
 
-      console.log("Processed shopping list data with CO2:", this.shoppingList);
+      // console.log("Processed shopping list data with CO2:", this.shoppingList);
     } catch (err) {
       console.error("Error fetching shopping list:", err);
     } finally {
