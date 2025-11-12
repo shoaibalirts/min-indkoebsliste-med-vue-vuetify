@@ -4,10 +4,10 @@
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
     </template>
 
-    <v-app-bar-title @clcik="reloadApp">Dine Indkøbslister</v-app-bar-title>
+    <v-app-bar-title @click="reloadApp">Dine Indkøbslister</v-app-bar-title>
 
     <template v-slot:append>
-      <v-btn icon="mdi-magnify"></v-btn>
+      <v-btn icon="mdi-magnify" @click="callSearchComponent"></v-btn>
       <v-btn icon="mdi-dots-vertical"></v-btn>
     </template>
   </v-app-bar>
@@ -17,9 +17,10 @@
 export default {
   methods: {
     reloadApp() {
-      console.log("clicked");
-
       window.location.reload();
+    },
+    callSearchComponent() {
+      console.log("clicked");
     },
   },
 };
