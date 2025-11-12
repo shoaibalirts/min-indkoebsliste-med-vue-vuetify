@@ -49,6 +49,7 @@
                 {{ item.co2 }} kg CO₂
               </span>
             </div>
+<green-drop-down :product-id="item.id" />
           </v-list-item>
         </v-list>
       </div>
@@ -78,7 +79,7 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { db } from '@/utility/firebaseConfig'
 import { doc, getDoc } from 'firebase/firestore'
-
+import GreenDropDown from "@/components/GreenDropDown.vue";
 const route = useRoute()
 const list = ref(null)
 

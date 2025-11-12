@@ -1,39 +1,65 @@
+<template>
+<!-- // template fra vuetify -->
+  <div>
+    <h3 v-if="alternatives.length">Vælg grønt alternativ</h3>
+    <v-select
+    bg-color="dark-green"
+      clearable
+      chips
+      label="Vælg alternativ"
+      :items="alternatives"
+      item-title="prodName"
+      item-value="prodName"
+      v-if="alternatives.length"
+variant="solo-filled"
+    >
+    
+    </v-select>
+  </div>
+</template>
+<script setup>
+import { ref, onMounted } from "vue";
+import { db } from "@/utility/firebaseConfig";
+import { doc, getDoc } from "firebase/firestore";
 
-    <template>
-        <div class="text-center">
-                <v-menu
-                open-on-hover
-                >
-                    <template v-slot:activator="{ props }">
-                                <v-btn
-                                color="green"
-                                v-bind="props"
-                                >
-                                Grønne alternativer 
-                                    <v-icon right>mdi-menu-down</v-icon>
-                                    <v-icon icon="fa:fas fa-lock">efe</v-icon>
 
-                                </v-btn>
-                    </template>
+// modtag produktets id som prop
+const props = defineProps({
+  productId: {
+    type: String,
+    required: true,
+  },
+});
 
-                    <v-list>
-                                <v-list-item
-                                v-for="(item, index) in items"
-                                :key="index"
-                                :value="index"
-                                >
-                                <v-list-item-title>{{ item.title }}</v-list-item-title>
-                                </v-list-item>
-                    </v-list>
-                    </v-menu>
-        </div>
-    </template>
+const alternatives = ref([]);
 
-<script>
-// import productService from "@/services/productService";
+onMounted(async () => {
+  try {
+    const prodRef = doc(db, "Products", props.productId);
+    const prodSnap = await getDoc(prodRef);
 
-export default {}
+    if (!prodSnap.exists()) return;
+
+    const data = prodSnap.data();
+    if (Array.isArray(data.prodAlternatives)) {
+      alternatives.value = data.prodAlternatives;
+    
+    } else {
+      alternatives.value = [];
+    }
+  } catch (err) {
+    console.error("Fejl ved hentning af alternativer:", err);
+  }
+  
+});
+
 </script>
 <style scoped>
+h3{
+    font-size: small;
+    font-weight: 100;
+    color: green;
+  
+}
 
 </style>
