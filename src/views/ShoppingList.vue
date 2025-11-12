@@ -6,7 +6,7 @@
   <v-card class="mx-auto">
     <v-card-title class="text-center bg-primary rounded-b-circle">Seneste 30 dage</v-card-title>
 
-    <v-list v-if="recent30DaysList.length > 0">
+    <v-list v-if="recent30DaysList.length > 0" class="pb-0">
       <div v-for="(list, index) in recent30DaysList" :key="`recent-${index}`">
         <v-list-item class="rounded elevation-1" @click="handleClick">
           <v-list-item-title class="font-weight-bold">{{ list.listName }}</v-list-item-title>
@@ -40,7 +40,7 @@
 
     <v-card-title class="text-center bg-primary rounded-b-circle">Sidste måned</v-card-title>
 
-    <v-list v-if="previousMonthList.length > 0">
+    <v-list v-if="previousMonthList.length > 0" class="pb-0">
       <div v-for="(list, index) in previousMonthList" :key="`prev-month-${index}`">
         <v-list-item class="rounded elevation-1" @click="handleClick">
           <v-list-item-title class="font-weight-bold">{{ list.listName }}</v-list-item-title>
