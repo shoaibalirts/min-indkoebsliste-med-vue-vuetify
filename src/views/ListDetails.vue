@@ -1,84 +1,94 @@
 <template>
-  <v-container class="mobile-container pa-4 d-flex flex-column justify-space-between">
-    <div>
-      <div class="d-flex align-center mb-2">
-        <v-btn variant="plain" size="small" @click="$router.back()">
-          <v-icon :icon="mdiArrowLeft" size="25" />
+  <v-container fluid class="pa-4 pa-md-8 d-flex flex-column justify-space-between">
 
+  <!-- Header -->
+  <div>
+    <div class="d-flex align-center mb-2">
+      <v-btn variant="plain" size="small" @click="$router.back()">
+        <v-icon :icon="mdiArrowLeft" size="25" />
+      </v-btn>
 
-        </v-btn>
-        <h2 class="text-h6 font-weight-bold mb-0 ml-2">{{ list?.name }}</h2>
-      </div>
-
-      <div v-if="list">
-        <div class="d-flex align-center mb-2 ml-2">
-          <p class="text-subtitle-2 font-weight-medium mb-0">
-            CO₂e: {{ list.totalCO2.toFixed(1) }} kg
-          </p>
-          <div :class="['co2-dot', getLevelColor(list.co2Level), 'ml-2', 'mr-1']"></div>
-          <span class="text-body-2 font-weight-medium">{{ list.co2Level }}</span>
-        </div>
-
-        <div class="divider mb-4"></div>
-
-        <v-list density="compact" lines="false">
-          <v-list-item
-            v-for="(item, i) in list.items"
-            :key="i"
-            class="py-1"
-            @click="toggleChecked(i)"
-          >
-            <div class="d-flex align-center justify-space-between w-100">
-              <div class="d-flex align-center">
-                <div class="round-checkbox" :class="{ checked: item.checked }">
-<v-icon
-  v-if="item.checked"
-  size="14"
-  color="white"
-  :icon="mdiCheck"
-/>
-              </div>
-
-                <div :class="['item-text', { 'checked-text': item.checked }]">
-                  <v-list-item-title class="text-body-1 font-weight-bold">
-                    {{ item.name }}
-                  </v-list-item-title>
-                  <v-list-item-subtitle class="text-caption">
-                    {{ item.amount || '' }}
-                  </v-list-item-subtitle>
-                </div>
-              </div>
-
-              <span
-                class="text-body-2 font-weight-medium"
-                :class="{ 'checked-text': item.checked }"
-              >
-                {{ item.co2 }} kg CO₂
-              </span>
-            </div>
-<green-drop-down :product-id="item.id" />
-          </v-list-item>
-        </v-list>
-      </div>
-
-      <div v-else>
-        <v-alert type="warning" variant="tonal">
-          Ingen data fundet for denne liste.
-        </v-alert>
-      </div>
+      <h2 class="text-h6 text-md-h5 font-weight-bold mb-0 ml-2">
+        {{ list?.name }}
+      </h2>
     </div>
 
-    <v-bottom-navigation height="56" class="bottom-bar">
-      <v-btn
-        variant="text"
-        class="text-body-2 font-weight-medium"
-        @click="$router.push('/lists')"
-      >
-<v-icon start :icon="mdiFormatListBulleted" />
-        dine indkøbslister
-      </v-btn>
-    </v-bottom-navigation>
-  </v-container>
+    <div v-if="list">
+      <div class="d-flex align-center mb-2 ml-2">
+        <p class="text-subtitle-2 text-md-subtitle-1 font-weight-medium mb-0">
+          CO₂e: {{ list.totalCO2.toFixed(1) }} kg
+        </p>
+
+        <div
+          :class="['co2-dot', getLevelColor(list.co2Level), 'ml-2', 'mr-1']"
+        ></div>
+
+        <span class="text-body-2 text-md-body-1 font-weight-medium">
+          {{ list.co2Level }}
+        </span>
+      </div>
+
+      <div class="divider mb-4"></div>
+
+      <v-list density="compact" lines="false">
+        <v-list-item
+          v-for="(item, i) in list.items"
+          :key="i"
+          class="py-1"
+          @click="toggleChecked(i)"
+        >
+          <div class="d-flex align-center justify-space-between w-100">
+            <div class="d-flex align-center">
+              <div class="round-checkbox" :class="{ checked: item.checked }">
+                <v-icon
+                  v-if="item.checked"
+                  size="14"
+                  color="white"
+                  :icon="mdiCheck"
+                />
+              </div>
+
+              <div :class="['item-text', { 'checked-text': item.checked }]">
+                <v-list-item-title class="text-body-1 font-weight-bold">
+                  {{ item.name }}
+                </v-list-item-title>
+                <v-list-item-subtitle class="text-caption">
+                  {{ item.amount || '' }}
+                </v-list-item-subtitle>
+              </div>
+            </div>
+
+            <span
+              class="text-body-2 font-weight-medium"
+              :class="{ 'checked-text': item.checked }"
+            >
+              {{ item.co2 }} kg CO₂
+            </span>
+          </div>
+
+          <green-drop-down :product-id="item.id" />
+        </v-list-item>
+      </v-list>
+    </div>
+
+    <div v-else>
+      <v-alert type="warning" variant="tonal">
+        Ingen data fundet for denne liste.
+      </v-alert>
+    </div>
+  </div>
+
+  <v-bottom-navigation height="56" class="bottom-bar">
+    <v-btn
+      variant="text"
+      class="text-body-2 font-weight-medium"
+      @click="$router.push('/lists')"
+    >
+      <v-icon start :icon="mdiFormatListBulleted" />
+      dine indkøbslister
+    </v-btn>
+  </v-bottom-navigation>
+</v-container>
 </template>
 
 <script setup>
