@@ -95,6 +95,8 @@ import parseDDMMYYYY from "@/utility/dateParser";
 import TheLoader from "@/components/TheLoader.vue";
 import { db } from "@/utility/firebaseConfig";
 import { collection, getDocs, where, query, documentId } from "firebase/firestore";
+import getCo2LevelColor from "@/utility/getCo2LevelColor";
+import getCo2LevelText from "@/utility/getCo2LevelText";
 const productsCollection = collection(db, "Products");
 
 export default {
@@ -123,6 +125,8 @@ export default {
     openDialogComponent() {
       this.isDeletedPressed = true;
     },
+    getCo2LevelColor,
+    getCo2LevelText,
   },
   computed: {
     recent30DaysList() {
