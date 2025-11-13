@@ -1,7 +1,7 @@
 <template>
   <v-form id="list-form" @submit.prevent="handleSaveList">
-    <v-btn prepend-icon="mdi-chevron-left" variant="plain" size="large" @click="handleClickBackBtn"
-      >Tilbage</v-btn
+    <v-btn size="large" @click="handleClickBackBtn">
+      <v-icon :icon="mdiChevronLeft"></v-icon>Tilbage</v-btn
     >
 
     <v-text-field
@@ -44,7 +44,7 @@
 
 <script>
 import productService from "../services/productService";
-
+import { mdiChevronLeft } from "@mdi/js";
 export default {
   data() {
     return {
@@ -53,6 +53,7 @@ export default {
       selectedItem: null,
       listName: "",
       validationRules: [(value) => !!value || "Liste navn er pakrævet."],
+      mdiChevronLeft,
     };
   },
   methods: {
