@@ -2,8 +2,10 @@
   <v-container class="mobile-container pa-4 d-flex flex-column justify-space-between">
     <div>
       <div class="d-flex align-center mb-2">
-        <v-btn variant="plain" icon size="small" @click="$router.back()">
-          <v-icon>mdi-arrow-left</v-icon>
+        <v-btn variant="plain" size="small" @click="$router.back()">
+          <v-icon :icon="mdiArrowLeft" size="25" />
+
+
         </v-btn>
         <h2 class="text-h6 font-weight-bold mb-0 ml-2">{{ list?.name }}</h2>
       </div>
@@ -29,8 +31,13 @@
             <div class="d-flex align-center justify-space-between w-100">
               <div class="d-flex align-center">
                 <div class="round-checkbox" :class="{ checked: item.checked }">
-                  <v-icon v-if="item.checked" size="14" color="white">mdi-check</v-icon>
-                </div>
+<v-icon
+  v-if="item.checked"
+  size="14"
+  color="white"
+  :icon="mdiCheck"
+/>
+              </div>
 
                 <div :class="['item-text', { 'checked-text': item.checked }]">
                   <v-list-item-title class="text-body-1 font-weight-bold">
@@ -67,7 +74,7 @@
         class="text-body-2 font-weight-medium"
         @click="$router.push('/lists')"
       >
-        <v-icon start>mdi-format-list-bulleted</v-icon>
+<v-icon start :icon="mdiFormatListBulleted" />
         dine indkøbslister
       </v-btn>
     </v-bottom-navigation>
@@ -80,6 +87,8 @@ import { useRoute } from 'vue-router'
 import { db } from '@/utility/firebaseConfig'
 import { doc, getDoc } from 'firebase/firestore'
 import GreenDropDown from "@/components/GreenDropDown.vue";
+import { mdiArrowLeft, mdiCheck, mdiFormatListBulleted } from '@mdi/js'
+
 const route = useRoute()
 const list = ref(null)
 
