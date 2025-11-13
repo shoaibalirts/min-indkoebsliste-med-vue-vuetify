@@ -58,8 +58,8 @@ export default {
   },
   methods: {
     handleClickBackBtn() {
-      this.handleSaveList();
-      this.$emit("toggle-open");
+      if (this.shoppingListProducts.length === 0) this.$router.push({ path: "/" });
+      else this.handleSaveList();
     },
     setShoppingListData(data) {
       this.shoppingListProducts.push(data.value);
@@ -75,7 +75,7 @@ export default {
 
       productService.saveListData(list);
 
-      this.$emit("toggle-open");
+      this.$router.push({ path: "/" });
     },
   },
   async mounted() {

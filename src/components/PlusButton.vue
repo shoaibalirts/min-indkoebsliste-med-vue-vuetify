@@ -5,7 +5,7 @@
         <v-btn
           :icon="mdiPlus"
           size="large"
-          @click="handleClickBtn"
+          :to="{ path: '/add-new' }"
           class="text-center bg-primary rounded-b-circle"
         ></v-btn>
       </v-col>
@@ -21,11 +21,6 @@ export default {
     return {
       mdiPlus,
     };
-  },
-  methods: {
-    handleClickBtn() {
-      this.$emit("toggle-open");
-    },
   },
 };
 </script>

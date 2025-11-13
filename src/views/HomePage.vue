@@ -3,9 +3,8 @@
     <the-header></the-header>
     <v-main class="mt-0">
       <ShoppingList />
-      <PlusButton @toggle-open="toggleIsAddNewListOpened" />
+      <PlusButton />
     </v-main>
-    <add-new-list v-if="isAddNewListOpened" @toggle-open="toggleIsAddNewListOpened" />
 
     <the-footer></the-footer>
   </v-app>
@@ -25,17 +24,6 @@ export default {
     TheFooter,
     //GreenDropDown,
     AddNewList,
-  },
-
-  data() {
-    return {
-      isAddNewListOpened: false,
-    };
-  },
-  methods: {
-    toggleIsAddNewListOpened() {
-      this.isAddNewListOpened = !this.isAddNewListOpened;
-    },
   },
 };
 </script>
