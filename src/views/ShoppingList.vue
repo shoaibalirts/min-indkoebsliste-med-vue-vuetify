@@ -1,9 +1,6 @@
 <template>
-  <p v-if="loading">
-    <the-loader />
-  </p>
-
-  <v-card class="mx-auto">
+  <v-skeleton-loader type="card" v-if="loading"></v-skeleton-loader>
+  <v-card class="mx-auto" v-else>
     <v-card-title class="text-center bg-primary rounded-b-circle">Seneste 30 dage</v-card-title>
 
     <v-list v-if="recent30DaysList.length > 0" class="pb-0">
@@ -36,7 +33,6 @@ import DialogBox from "@/components/UI/DialogBox.vue";
 import productService from "@/services/productService";
 import { formatDateDMY } from "@/utility/dateFormatter";
 import parseDDMMYYYY from "@/utility/dateParser";
-import TheLoader from "@/components/TheLoader.vue";
 import { db } from "@/utility/firebaseConfig";
 import { collection, getDocs, where, query, documentId } from "firebase/firestore";
 import getCo2LevelColor from "@/utility/getCo2LevelColor";
@@ -47,7 +43,6 @@ export default {
   components: {
     ListItem,
     DialogBox,
-    TheLoader,
   },
   data() {
     return {
