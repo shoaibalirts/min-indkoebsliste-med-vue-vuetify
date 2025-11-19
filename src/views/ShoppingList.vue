@@ -29,7 +29,7 @@
 
 <script>
 import ListItem from "@/components/ListItem.vue";
-import DialogBox from "@/components/UI/DialogBox.vue";
+// import DialogBox from "@/components/UI/DialogBox.vue";
 import productService from "@/services/productService";
 import { formatDateDMY } from "@/utility/dateFormatter";
 import parseDDMMYYYY from "@/utility/dateParser";
@@ -42,7 +42,7 @@ const productsCollection = collection(db, "Products");
 export default {
   components: {
     ListItem,
-    DialogBox,
+    // DialogBox,
   },
   data() {
     return {
